@@ -1,4 +1,5 @@
 from openai import OpenAI
+from openai import RateLimitError
 
 from src.config import OPENAI_API_KEY
 from src.prompts import SYSTEM_PROMPT
@@ -66,21 +67,24 @@ def gerar_resposta(
     if client is None:
         return "Chave da OpenAI não configurada. Defina OPENAI_API_KEY no arquivo .env para usar o agente."
 
-    resposta = client.chat.completions.create(
-        model="gpt-4o-mini",
-        messages=[
-            {
-                "role": "system",
-                "content": SYSTEM_PROMPT
-            },
-            {
-                "role": "user",
-                "content":
-                    contexto +
-                    "\n\nPergunta:\n" +
-                    pergunta
-            }
-        ]
-    )
+    try:
+        resposta = client.chat.completions.create(
+            model="gpt-4o-mini",
+            messages=[
+                {
+                    "role": "system",
+                    "content": SYSTEM_PROMPT
+                },
+                {
+                    "role": "user",
+                    "content":
+                        contexto +
+                        "\n\nPergunta:\n" +
+                        pergunta
+                }
+            ]
+        )
+    except RateLimitError:
+        return "A API da OpenAI não está disponível no momento porque a quota foi excedida. Verifique seu plano e billing da conta."
 
     return resposta.choices[0].message.content
