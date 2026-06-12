@@ -99,7 +99,10 @@ if st.button("Enviar"):
         historico
     )
 
-    st.write(resposta)
+    if "quota" in resposta.lower() or "configurada" in resposta.lower():
+        st.error(resposta)
+    else:
+        st.write(resposta)
 
 st.divider()
 
@@ -119,7 +122,10 @@ if st.button(
         historico
     )
 
-    st.write(resposta)
+    if "quota" in resposta.lower() or "configurada" in resposta.lower():
+        st.error(resposta)
+    else:
+        st.write(resposta)
 
 if st.button(
     "Como completar minha reserva?"
@@ -133,4 +139,7 @@ if st.button(
         historico
     )
 
-    st.write(resposta)
+    if "quota" in resposta.lower() or "configurada" in resposta.lower():
+        st.error(resposta)
+    else:
+        st.write(resposta)
