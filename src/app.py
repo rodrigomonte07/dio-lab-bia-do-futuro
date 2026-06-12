@@ -5,56 +5,132 @@ from agente import gerar_resposta
 
 st.set_page_config(
     page_title="FinGuardian AI",
-    page_icon="💰"
+    page_icon="💰",
+    layout="wide"
 )
+
+(
+    transacoes,
+    historico,
+    perfil,
+    produtos
+) = carregar_dados()
 
 st.title("🤖 FinGuardian AI")
 
-transacoes, historico, perfil, produtos = carregar_dados()
-
-with st.sidebar:
+with st.sidebar():
 
     st.header("Cliente")
 
-    st.write(f"Nome: {perfil['nome']}")
-    st.write(f"Perfil: {perfil['perfil_investidor']}")
-    st.write(f"Renda: R$ {perfil['renda_mensal']}")
-    st.write(f"Objetivo: {perfil['objetivo_principal']}")
+    st.write(
+        f"Nome: {perfil['nome']}"
+    )
 
-st.subheader("Faça sua pergunta")
+    st.write(
+        f"Perfil: {perfil['perfil_investidor']}"
+    )
+
+    st.write(
+        f"Objetivo: {perfil['objetivo_principal']}"
+    )
+
+st.subheader(
+    "📊 Resumo Financeiro"
+)
+
+col1, col2, col3 = st.columns(3)
+
+col1.metric(
+    "Renda Mensal",
+    f"R$ {perfil['renda_mensal']:,.2f}"
+)
+
+col2.metric(
+    "Patrimônio",
+    f"R$ {perfil['patrimonio_total']:,.2f}"
+)
+
+col3.metric(
+    "Reserva Atual",
+    f"R$ {perfil['reserva_emergencia_atual']:,.2f}"
+)
+
+st.subheader(
+    "💡 Insights Proativos"
+)
+
+meta = perfil["metas"][0]["valor_necessario"]
+
+reserva = perfil[
+    "reserva_emergencia_atual"
+]
+
+faltam = meta - reserva
+
+st.info(
+    f"""
+Sua reserva atual é de
+R$ {reserva:,.2f}
+
+Sua meta é
+R$ {meta:,.2f}
+
+Faltam
+R$ {faltam:,.2f}
+para concluir a meta.
+"""
+)
+
+st.subheader(
+    "💬 Converse com o FinGuardian AI"
+)
 
 pergunta = st.text_input(
-    "Digite uma pergunta"
+    "Digite sua pergunta"
 )
 
 if st.button("Enviar"):
 
     resposta = gerar_resposta(
+        pergunta,
         perfil,
         produtos,
-        pergunta
+        transacoes,
+        historico
     )
-
-    st.markdown("### Resposta")
 
     st.write(resposta)
 
 st.divider()
 
-st.subheader("Sugestões")
+st.subheader(
+    "⚡ Perguntas Frequentes"
+)
 
-if st.button("Qual investimento combina comigo?"):
+if st.button(
+    "Qual investimento combina comigo?"
+):
+
     resposta = gerar_resposta(
+        "Qual investimento combina comigo?",
         perfil,
         produtos,
-        "Qual investimento combina comigo?"
+        transacoes,
+        historico
     )
+
     st.write(resposta)
 
-if st.button("Como completar minha reserva de emergência?"):
+if st.button(
+    "Como completar minha reserva?"
+):
+
     resposta = gerar_resposta(
+        "Como completar minha reserva de emergência?",
         perfil,
         produtos,
-        "Como completar minha reserva de emergência?"
+        transacoes,
+        historico
     )
+
     st.write(resposta)
