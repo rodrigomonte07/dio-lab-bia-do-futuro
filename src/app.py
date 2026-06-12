@@ -1,6 +1,6 @@
 import streamlit as st
 
-from carregador_dados import carregar_dados
+from src.carregador_dados import carregar_dados
 from agente import gerar_resposta
 
 st.set_page_config(
@@ -18,21 +18,21 @@ st.set_page_config(
 
 st.title("🤖 FinGuardian AI")
 
-with st.sidebar():
+sidebar = st.sidebar
 
-    st.header("Cliente")
+sidebar.header("Cliente")
 
-    st.write(
-        f"Nome: {perfil['nome']}"
-    )
+sidebar.write(
+    f"Nome: {perfil['nome']}"
+)
 
-    st.write(
-        f"Perfil: {perfil['perfil_investidor']}"
-    )
+sidebar.write(
+    f"Perfil: {perfil['perfil_investidor']}"
+)
 
-    st.write(
-        f"Objetivo: {perfil['objetivo_principal']}"
-    )
+sidebar.write(
+    f"Objetivo: {perfil['objetivo_principal']}"
+)
 
 st.subheader(
     "📊 Resumo Financeiro"
