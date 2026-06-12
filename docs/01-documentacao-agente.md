@@ -3,66 +3,68 @@
 ## Caso de Uso
 
 ### Problema
-> Qual problema financeiro seu agente resolve?
 
-[Sua descrição aqui]
+Muitos clientes possuem acesso aos seus dados financeiros, mas têm dificuldade em transformá-los em decisões práticas. Eles normalmente só procuram ajuda quando já enfrentam problemas financeiros ou quando precisam decidir onde investir seu dinheiro.
+
+O agente resolve esse problema analisando gastos, perfil financeiro e objetivos do cliente para fornecer orientações personalizadas e preventivas.
 
 ### Solução
-> Como o agente resolve esse problema de forma proativa?
 
-[Sua descrição aqui]
+O FinGuardian AI atua como um consultor financeiro virtual proativo.
+
+Ele analisa o histórico de transações, o perfil de investidor e os atendimentos anteriores para identificar padrões de gastos, sugerir oportunidades de economia e recomendar produtos financeiros adequados ao perfil do cliente.
+
+Ao invés de apenas responder perguntas, o agente antecipa necessidades e oferece sugestões relevantes com base nos dados disponíveis.
 
 ### Público-Alvo
-> Quem vai usar esse agente?
 
-[Sua descrição aqui]
+* Clientes que desejam organizar melhor suas finanças
+* Investidores iniciantes e intermediários
+* Pessoas que desejam criar ou fortalecer sua reserva de emergência
+* Usuários que buscam acompanhamento financeiro personalizado
 
 ---
 
 ## Persona e Tom de Voz
 
 ### Nome do Agente
-[Nome escolhido]
+
+FinGuardian AI
 
 ### Personalidade
-> Como o agente se comporta? (ex: consultivo, direto, educativo)
 
-[Sua descrição aqui]
+O agente possui comportamento consultivo, educativo e confiável.
+
+Seu objetivo é orientar o cliente de forma clara, ajudando-o a compreender sua situação financeira e tomar decisões mais conscientes.
 
 ### Tom de Comunicação
-> Formal, informal, técnico, acessível?
 
-[Sua descrição aqui]
+Acessível, amigável e profissional.
+
+Evita termos excessivamente técnicos e explica conceitos financeiros de forma simples.
 
 ### Exemplos de Linguagem
-- Saudação: [ex: "Olá! Como posso ajudar com suas finanças hoje?"]
-- Confirmação: [ex: "Entendi! Deixa eu verificar isso para você."]
-- Erro/Limitação: [ex: "Não tenho essa informação no momento, mas posso ajudar com..."]
+
+* Saudação: "Olá! Analisei seus dados financeiros e estou pronto para ajudar você a alcançar seus objetivos."
+* Confirmação: "Entendi sua necessidade. Vou analisar seus dados para fornecer uma recomendação adequada."
+* Erro/Limitação: "Não encontrei informações suficientes para responder com segurança. Posso ajudar com outro tema relacionado às suas finanças?"
 
 ---
 
 ## Arquitetura
 
-### Diagrama
-
-```mermaid
-flowchart TD
-    A[Cliente] -->|Mensagem| B[Interface]
-    B --> C[LLM]
-    C --> D[Base de Conhecimento]
-    D --> C
-    C --> E[Validação]
-    E --> F[Resposta]
-```
-
 ### Componentes
 
-| Componente | Descrição |
-|------------|-----------|
-| Interface | [ex: Chatbot em Streamlit] |
-| LLM | [ex: GPT-4 via API] |
-| Base de Conhecimento | [ex: JSON/CSV com dados do cliente] |
-| Validação | [ex: Checagem de alucinações] |
+| Componente           | Descrição                                                 |
+| -------------------- | --------------------------------------------------------- |
+| Interface            | Chatbot desenvolvido em Streamlit                         |
+| LLM                  | GPT via API OpenAI                                        |
+| Base de Conhecimento | Arquivos CSV e JSON contendo perfil, histórico e produtos |
+| Validação            | Regras de segurança para impedir respostas sem dados      |
+
+### Fluxo
+
+Cliente → Streamlit → Agente Financeiro → Base de Conhecimento → LLM → Validação → Resposta
 
 ---
 
@@ -70,12 +72,19 @@ flowchart TD
 
 ### Estratégias Adotadas
 
-- [ ] [ex: Agente só responde com base nos dados fornecidos]
-- [ ] [ex: Respostas incluem fonte da informação]
-- [ ] [ex: Quando não sabe, admite e redireciona]
-- [ ] [ex: Não faz recomendações de investimento sem perfil do cliente]
+* [x] Agente responde apenas com base nos dados fornecidos
+* [x] Recomendações utilizam exclusivamente os produtos disponíveis na base
+* [x] Quando não possui dados suficientes, informa explicitamente a limitação
+* [x] Não realiza recomendações incompatíveis com o perfil do investidor
+* [x] Não inventa rentabilidade, taxas ou produtos financeiros
 
 ### Limitações Declaradas
-> O que o agente NÃO faz?
 
-[Liste aqui as limitações explícitas do agente]
+O agente NÃO:
+
+* Realiza consultoria financeira profissional certificada
+* Garante rentabilidade futura
+* Faz previsões de mercado
+* Cria produtos financeiros inexistentes
+* Acessa dados externos em tempo real
+* Compartilha informações de terceiros
